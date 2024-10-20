@@ -2,7 +2,6 @@ using ECommerce.API.Controllers.Base;
 using ECommerce.Application.Dtos;
 using ECommerce.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.API.Controllers;
 
@@ -10,11 +9,15 @@ public class ProductController(IProductService service) : AbstractBaseController
 {
     [HttpGet]
     public async Task<IActionResult> Get(int page, int size)
-        => ControllerResponse(await service.GetPagedListAsync(page, size, null, null, i => i.Include(i => i.Categories).Include(x => x.Image)));
+        => ControllerResponse(await service.GetAsync(page, size));
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute]Guid id)
-        => ControllerResponse(await service.GetFirstOrDefaultAsync(x => x.Id == id, null, x => x.Include(p => p.Categories).Include(x => x.Image)));
+        => ControllerResponse(await service.GetByIdAsync(id));
+
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetByUser([FromRoute] Guid userId)
+        => ControllerResponse(await service.GetByUserIdAsync(userId));
 
     [HttpPost]
     public async Task<IActionResult> Create(ProductDto product)
