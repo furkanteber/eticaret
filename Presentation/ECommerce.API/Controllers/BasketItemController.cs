@@ -14,11 +14,11 @@ public class BasketItemController(IBasketItemService service) : AbstractBaseCont
     
     [HttpPost]
     public async Task<IActionResult> Create(BasketItemDto basketItem)
-        => ControllerResponse(await service.CreateAsync(basketItem));
+        => ControllerResponse(await service.AddAsync(basketItem));
     
     [HttpPut]
-    public async Task<IActionResult> Update(BasketItemDto basketItem)
-        => ControllerResponse(await service.UpdateAsync(basketItem));
+    public async Task<IActionResult> Update(Guid id, int quantity)
+        => ControllerResponse(await service.UpdateQuantityAsync(id, quantity));
     
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute]Guid basketItemId)
