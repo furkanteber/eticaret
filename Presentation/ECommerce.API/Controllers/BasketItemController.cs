@@ -20,7 +20,7 @@ public class BasketItemController(IBasketItemService service) : AbstractBaseCont
     public async Task<IActionResult> Update(BasketItemDto basketItem)
         => ControllerResponse(await service.UpdateAsync(basketItem));
     
-    [HttpDelete]
-    public async Task<IActionResult> Delete(Guid basketItemId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute]Guid basketItemId)
         => ControllerResponse(await service.DeleteAsync(basketItemId));
 }
