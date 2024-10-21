@@ -10,11 +10,11 @@ public class BasketItemController(IBasketItemService service) : AbstractBaseCont
 {
     [HttpGet]
     public async Task<IActionResult> Get(Guid basketId)
-        => ControllerResponse(await service.GetListAsync(x => x.BasketId == basketId,null, i => i.Include(x => x.Product)));
+        => ControllerResponse(await service.GetWithIncludes(basketId));
     
     [HttpPost]
-    public async Task<IActionResult> Create(BasketItemDto basketItem)
-        => ControllerResponse(await service.CreateAsync(basketItem));
+    public async Task<IActionResult> Add(BasketItemDto basketItem)
+        => ControllerResponse(await service.AddAsync(basketItem));
     
     [HttpPut]
     public async Task<IActionResult> Update(BasketItemDto basketItem)

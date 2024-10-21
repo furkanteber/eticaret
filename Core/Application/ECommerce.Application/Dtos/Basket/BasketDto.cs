@@ -1,12 +1,8 @@
-namespace ECommerce.Application.Dtos;
+namespace ECommerce.Application.Dtos.Basket;
 
-public class BasketItemDto : BaseDto
+public class BasketDto : BaseDto
 {
-    public int Quantity { get; set; }
-    
-    public Guid BasketId { get; set; }
-    public Guid ProductId { get; set; }
-    
-    // public Basket Basket { get; set; }
-    public ProductDto Product { get; set; }   
+    public string UserId { get; set; } = null!;
+    // public UserDto User { get; set; }
+    public List<BasketItemDto> BasketItems { get; set; } = new();
 }
