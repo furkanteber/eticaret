@@ -23,6 +23,10 @@ public class ProductController(IProductService service) : AbstractBaseController
     public async Task<IActionResult> Create(ProductDto product)
         => ControllerResponse(await service.CreateAsync(product));
 
+    [HttpPost("save-image/{id}")]
+    public async Task<IActionResult> SaveImage([FromRoute]Guid id, [FromForm] IFormFileCollection files)
+        => ControllerResponse(await service.SaveImageAsync(id, files));
+
     [HttpPut]
     public async Task<IActionResult> Update(ProductDto product)
         => ControllerResponse(await service.UpdateAsync(product));
@@ -30,5 +34,4 @@ public class ProductController(IProductService service) : AbstractBaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute]Guid id)
         => ControllerResponse(await service.DeleteAsync(id));
-
 }
